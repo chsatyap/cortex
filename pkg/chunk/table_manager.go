@@ -221,9 +221,7 @@ func (m *TableManager) loop(ctx context.Context) error {
 	ticker := time.NewTicker(m.cfg.PollInterval)
 	defer ticker.Stop()
 
-	if err := instrument.CollectedRequest(context.Background(), "TableManager.SyncTables", instrument.NewHistogramCollector(m.metrics.syncTableDuration), instrument.ErrorCode, func(ctx context.Context) error {
-		return m.SyncTables(ctx)
-	}); err != nil {
+	if err := instrument.CollectedRequest(context.Background(), "TableManager.SyncTables", instrument.NewHistogramCollector(m.metrics.syncTableDuration), instrument.ErrorCode, m.SyncTables); err != nil {
 		level.Error(util.Logger).Log("msg", "error syncing tables", "err", err)
 	}
 
@@ -237,9 +235,7 @@ func (m *TableManager) loop(ctx context.Context) error {
 	for {
 		select {
 		case <-ticker.C:
-			if err := instrument.CollectedRequest(context.Background(), "TableManager.SyncTables", instrument.NewHistogramCollector(m.metrics.syncTableDuration), instrument.ErrorCode, func(ctx context.Context) error {
-				return m.SyncTables(ctx)
-			}); err != nil {
+			if err := instrument.CollectedRequest(context.Background(), "TableManager.SyncTables", instrument.NewHistogramCollector(m.metrics.syncTableDuration), instrument.ErrorCode, m.SyncTables); err != nil {
 				level.Error(util.Logger).Log("msg", "error syncing tables", "err", err)
 			}
 		case <-ctx.Done():
