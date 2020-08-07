@@ -69,7 +69,7 @@ func New(cfg Config) (DB, error) {
 		return nil, err
 	}
 
-	if len(cfg.PasswordFile) != 0 {
+	if cfg.PasswordFile != "" {
 		if u.User == nil {
 			return nil, fmt.Errorf("--database.password-file requires username in --database.uri")
 		}

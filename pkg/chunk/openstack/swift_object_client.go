@@ -87,7 +87,7 @@ func NewSwiftObjectClient(cfg SwiftConfig, delimiter string) (*SwiftObjectClient
 		return nil, fmt.Errorf("delimiter must be a single character but was %s", delimiter)
 	}
 	var delim rune
-	if len(delimiter) != 0 {
+	if delimiter != "" {
 		delim = []rune(delimiter)[0]
 	}
 
