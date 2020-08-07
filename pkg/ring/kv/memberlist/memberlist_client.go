@@ -898,7 +898,7 @@ func (m *KV) NotifyMsg(msg []byte) {
 		return
 	}
 
-	if len(kvPair.Key) == 0 {
+	if kvPair.Key == "" {
 		level.Warn(util.Logger).Log("msg", "received an invalid KV Pair (empty key)")
 		m.numberOfInvalidReceivedMessages.Inc()
 		return

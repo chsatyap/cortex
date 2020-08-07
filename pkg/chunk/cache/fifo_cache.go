@@ -53,7 +53,7 @@ func (cfg *FifoCacheConfig) Validate() error {
 }
 
 func parsebytes(s string) (uint64, error) {
-	if len(s) == 0 {
+	if s == "" {
 		return 0, nil
 	}
 	bytes, err := humanize.ParseBytes(s)
