@@ -79,7 +79,7 @@ func TestDeletedSeriesIterator(t *testing.T) {
 	for _, c := range cases {
 		i := int64(-1)
 		it := NewDeletedSeriesIterator(NewConcreteSeriesIterator(&cs), c.r)
-		ranges := c.r[:]
+		ranges := c.r
 
 		for it.Next() {
 			i++
